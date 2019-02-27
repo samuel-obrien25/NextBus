@@ -8,9 +8,9 @@ How often have you gotten to your bus stop on time, only for the bus to be 10, 2
 
 ## TO DO
 
-~~ Everything. ~~
+~~Everything.~~
 + Finish Splash Screen
-+ ~~ Setup SEPTA API ~~
++ ~~Setup SEPTA API~~
 + Write tests for components
 + Integrate MapBox
 + Create Map with Bus line Overlays
