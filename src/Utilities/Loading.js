@@ -1,5 +1,5 @@
 import React from 'react';
-import SlideIn from '../Utilities/SlideIn';
+import SlideIn from './SlideIn';
 import styled from 'styled-components';
 
 

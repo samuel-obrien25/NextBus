@@ -10,7 +10,7 @@ function SlideOut(props) {
             transform: translateY(0px);
         }
         to {
-            transform: translateY(-100px);
+            transform: ${props.animStyle === "fullScreen" ? "translateY(-100vh)" : "translateY(-100px)"};
             opacity: 0;
         }
     `;

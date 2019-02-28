@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import SlideIn from '../Utilities/SlideIn';
+import Map from '../Components/Map';
+import RoutePicker from '../Components/RoutePicker';
+
 const fetchJsonp = require('fetch-jsonp');
 
 //#region Map Styles
-const StyledMap = styled.section`
-    position: absolute;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100vh;
-    background-color: white;
-    z-index: 9000;
-`;
-
+    const StyledMapScreen = styled.section`
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100vh;
+        background-color: #c4167d;
+    `;
 //#endregion Map Styles
 
 
-class Map extends Component {
+class MapScreen extends Component {
     state = {
         apiResponse: null,
         busRoutes: null,
-        isHidden: true
+        isMapScreenActive: false,
     }
 
     getBusRoutes = () => {
@@ -46,9 +47,10 @@ class Map extends Component {
         //Logs the whole response from the SEPTA API
         console.log("All Routes: ", returnedBusRoutes[2]);
 
+        //Set busroutes to state and show component
         this.setState({
             busRoutes: returnedBusRoutes,
-            isHidden: !this.state.isHidden
+            isMapScreenActive: !this.state.isMapScreenActive
         });
     }
 
@@ -57,13 +59,16 @@ class Map extends Component {
     }
 
     render() {
-        if (this.state.isHidden) return <div></div>;
+        if (!this.state.isMapScreenActive) return null;
         else {
             return (
-                <SlideIn>
-                    <StyledMap>
-                    </StyledMap>
+                <SlideIn animDelay="3200ms" animFillMode="forwards" animDuration="900ms" animStyle="fullScreen" isLoaded={true}>
+                    <StyledMapScreen>
+                        <RoutePicker mapRoutes={null} />
+                        <Map/>
+                    </StyledMapScreen>
                 </SlideIn>
+
             );
 
         }
@@ -71,4 +76,4 @@ class Map extends Component {
     }
 }
 
-export default Map;
+export default MapScreen;

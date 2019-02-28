@@ -8,7 +8,7 @@ class RoutePicker extends Component {
     render() {
         return (
             <select name="routes">
-                {...this.props.routesList}
+                {this.props.routesList}
             </select>
         );
     }

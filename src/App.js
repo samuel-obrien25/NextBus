@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Splash from "./Screens/Splash";
-import Map from "./Screens/Map";
+
+import SplashScreen from "./Screens/SplashScreen";
+import MapScreen from "./Screens/MapScreen";
 
 import styled from 'styled-components';
 
@@ -13,13 +14,15 @@ const StyledMain = styled.main`
         left: 0;
         top:0;
 `;
+
 class App extends Component {
 
 render() {
+
  return (
       <StyledMain>
-        <Splash/>
-        <Map/>
+        <SplashScreen />
+        <MapScreen isLoaded={this.props.isLoaded}/>
       </StyledMain>
     );
   }

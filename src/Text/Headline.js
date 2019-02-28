@@ -31,10 +31,9 @@ class Headline extends React.Component {
         const mappedChars = separatedString.map((char, index) => {
 
             if(this.state.SlideInOut === "in"){
-                console.log({char});
-                return <SlideIn animDuration={index * 150 + 'ms'} animFillMode="forwards" animDelay="300ms" isForText={true}>{char}</SlideIn>;
+                return <SlideIn key={index} animDuration={index * 150 + 'ms'} animFillMode="forwards" animDelay="300ms" isForText={true}>{char}</SlideIn>;
             } else {
-                return <SlideOut animDuration={index * 300 + 'ms'} animFillMode="forwards" animDelay="900ms" isForText={true}>{char}</SlideOut>;
+                return <SlideOut key={index} animDuration={index * 300 + 'ms'} animFillMode="forwards" animDelay="900ms" isForText={true}>{char}</SlideOut>;
             }
         })
 

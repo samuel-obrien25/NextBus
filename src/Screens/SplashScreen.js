@@ -26,19 +26,21 @@ const StyledSplashBackground = styled.div`
 `;
 
 
-class Splash extends React.Component{
+class SplashScreen extends React.Component{
     state = {
-        slideInOut: "in"
+        slideInOut: "in",
     }
 
     componentDidMount() {
         //How long to wait before Splash slidesout
         setTimeout(() => {
             this.setState({
-                slideInOut: "out"
+                slideInOut: "out",
             });
         }, 2000);
     }
+
+    
 
     render(){
         if(this.state.slideInOut === "in"){
@@ -48,26 +50,25 @@ class Splash extends React.Component{
                         <StyledSplashBackground />
                     </SlideIn>
                     <SlideIn animDelay="150" animFillMode="forwards" animDuration="900ms">
-                        <Headline slideInOut="in" text="HEADLINE"/>
+                        <Headline slideInOut={this.state.slideInOut} text="HEADLINE"/>
                     </SlideIn>
-
                 </StyledSplashWrapper>
-
             );
         } else {
             return (
-                <StyledSplashWrapper>
-                    <SlideOut animDelay="1200ms" animFillMode="forwards" animDuration="800ms">
-                        <StyledSplashBackground />
-                    </SlideOut>
-                    <SlideOut animDelay="1000ms" animFillMode="forwards" animDuration="800ms">
-                        <Headline slideInOut="out" text="HEADLINE" />
-                    </SlideOut>
-                </StyledSplashWrapper>
+                <SlideOut animDelay="1200ms" animFillMode="forwards" animDuration="800ms" animStyle="fullScreenSlide">
+                    <StyledSplashWrapper>
+                        <SlideOut animDelay="1200ms" animFillMode="forwards" animDuration="800ms">
+                            <StyledSplashBackground />
+                        </SlideOut>
+                        <SlideOut animDelay="1000ms" animFillMode="forwards" animDuration="800ms">
+                            <Headline slideInOut={this.state.slideInOut} text="HEADLINE" />
+                        </SlideOut>
+                    </StyledSplashWrapper>
+                </SlideOut>
             );
-
         }
     }
 }
 
-export default Splash;
+export default SplashScreen;

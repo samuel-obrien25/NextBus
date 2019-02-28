@@ -5,12 +5,22 @@ import styled, { keyframes } from 'styled-components';
 function SlideIn(props) {
 
 // #region STYLES
-    const SlideIn = keyframes`
+    const SlideIn = (props) => keyframes`
         from {
-            transform: translateY(50px);
+            transform: ${props.animStyle === "fullScreen" ? "translateY(100vh)" : "translateY(50px)"};
         }
         to {
             transform: translateY(0px);
+            opacity: 1;
+        }
+    `;
+
+    const FullScreenSlideIn = keyframes`
+        from {
+            transform: translateY(100vh);
+        }
+        to {
+            transform: translateY(0);
             opacity: 1;
         }
     `;
@@ -31,9 +41,9 @@ function SlideIn(props) {
     `;
 // #endregion STYLES
 
-        const { animDelay, animDuration, animFillMode, isForText } = props;
+        const { animDelay, animDuration, animFillMode, animStyle, isForText } = props;
     return (
-        <StyledSlideIn isForText={isForText} animDelay={animDelay} animFillMode={animFillMode} animDuration={animDuration}>
+        <StyledSlideIn isForText={isForText} animDelay={animDelay} animFillMode={animFillMode} animDuration={animDuration} animStyle={animStyle}>
           {props.children}
         </StyledSlideIn>
     );
