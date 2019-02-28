@@ -1,38 +1,49 @@
 import React from 'react';
 import SlideIn from '../Utilities/SlideIn';
-import styled, { keyframes } from 'styled-components';
-
-
-function Headline(props) {
-
+import SlideOut from '../Utilities/SlideOut';
+import styled from 'styled-components';
 // #region STYLES
 
-    const StyledHeadline = styled.h1`
-        position: absolute;
+const StyledHeadline = styled.h1`
+        position: relative;
         color: rgba(255,255,255,.6);
-        top: 25%;
-        left: 0;
-        right: 0;
         text-align:center;
-        width: 100%;
-        font-size: 8vw;
-        display: inline-block;
+        width: auto;
+        font-size: 12vw;
+        display: flex;
         font-family: sans-serif;
-        letter-spacing: 8px;
+        letter-spacing: 0px;
+        margin: auto;
     `;
 // #endregion STYLES
+
+
+class Headline extends React.Component {
+    state = {
+        SlideInOut: this.props.slideInOut
+    }
     
-        const inputString = props.text;
+    render(){
+        const { location, text, slideInOut } = this.props;
+
+        const inputString = text;
         const separatedString = inputString.split("");
         const mappedChars = separatedString.map((char, index) => {
-            return  <SlideIn animDuration={index * 150 + 'ms'} animFillMode="forwards" animDelay="400ms">{char}</SlideIn>;
+
+            if(this.state.SlideInOut === "in"){
+                console.log({char});
+                return <SlideIn animDuration={index * 150 + 'ms'} animFillMode="forwards" animDelay="300ms" isForText={true}>{char}</SlideIn>;
+            } else {
+                return <SlideOut animDuration={index * 300 + 'ms'} animFillMode="forwards" animDelay="900ms" isForText={true}>{char}</SlideOut>;
+            }
         })
 
-    return (
-        <StyledHeadline style={props.location}>
-            {mappedChars}
-        </StyledHeadline>
-    );
+        return (
+            <StyledHeadline style={location} slideInOut={slideInOut}>
+                {mappedChars}
+            </StyledHeadline>
+        );
+    }
 }
 
 export default Headline;

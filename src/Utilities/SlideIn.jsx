@@ -6,26 +6,34 @@ function SlideIn(props) {
 
 // #region STYLES
     const SlideIn = keyframes`
+        from {
+            transform: translateY(50px);
+        }
         to {
             transform: translateY(0px);
             opacity: 1;
         }
     `;
-    
-    const StyledSlideIn = styled.span`
+
+    const StyledSlideIn = styled.div`
         animation: ${SlideIn};
         animation-delay: ${props => props.animDelay};
         animation-fill-mode: ${props => props.animFillMode};
         animation-duration: ${props => props.animDuration};
         opacity: 0;
-        transform: translateY(50px);
-        display: inline-block;
+        display: flex;
+        position: ${props => props.isForText ? "relative" : "absolute"};
+        text-align: ${props => props.isForText ? "center" : "left"};
+        top:0;
+        left: 0;
+        height: 100%;
+        width: 100%;
     `;
 // #endregion STYLES
 
-        const { animDelay, animDuration, animFillMode } = props;
+        const { animDelay, animDuration, animFillMode, isForText } = props;
     return (
-        <StyledSlideIn animDelay={animDelay} animFillMode={animFillMode} animDuration={animDuration}>
+        <StyledSlideIn isForText={isForText} animDelay={animDelay} animFillMode={animFillMode} animDuration={animDuration}>
           {props.children}
         </StyledSlideIn>
     );

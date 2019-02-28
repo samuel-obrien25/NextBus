@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-
+import styled from 'styled-components';
+import SlideIn from '../Utilities/SlideIn';
 const fetchJsonp = require('fetch-jsonp');
+
+//#region Map Styles
+const StyledMap = styled.section`
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    z-index: 9000;
+`;
+
+//#endregion Map Styles
+
 
 class Map extends Component {
     state = {
         apiResponse: null,
-        busRoutes: null
+        busRoutes: null,
+        isHidden: true
     }
 
     getBusRoutes = () => {
@@ -18,7 +34,7 @@ class Map extends Component {
                     apiResponse: busRoutesJSON.routes[0],
                 })
                 //Return this.state.busRoutes as a parameter of mapBusRoutes. This is kinda pointless
-                //but it works as a quick callback.
+                //but it works as a callback.
                 return this.mapBusRoutes(this.state.apiResponse);
             })
             .catch((error) => {
@@ -31,7 +47,8 @@ class Map extends Component {
         console.log("All Routes: ", returnedBusRoutes[2]);
 
         this.setState({
-            busRoutes: returnedBusRoutes
+            busRoutes: returnedBusRoutes,
+            isHidden: !this.state.isHidden
         });
     }
 
@@ -40,12 +57,17 @@ class Map extends Component {
     }
 
     render() {
-        return (
-            <div className="App">
-                <ul>
-                </ul>
-            </div>
-        );
+        if (this.state.isHidden) return <div></div>;
+        else {
+            return (
+                <SlideIn>
+                    <StyledMap>
+                    </StyledMap>
+                </SlideIn>
+            );
+
+        }
+
     }
 }
 
