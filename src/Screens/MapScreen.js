@@ -21,8 +21,8 @@ const fetchJsonp = require('fetch-jsonp');
 class MapScreen extends Component {
     state = {
         apiResponse: null,
-        busRoutes: null,
         isMapScreenActive: false,
+        mappedBusRoutes: null
     }
 
     getBusRoutes = () => {
@@ -30,30 +30,56 @@ class MapScreen extends Component {
         fetchJsonp("https://www3.septa.org/api/TransitViewAll/?callback=test")
             .then((response) => response.json())
             .then((busRoutesJSON) => {
-                //Set busRoutes' state to the response, with a little massaging for ease of use later
+                //Set busRoutes' state to the response
                 this.setState({
                     apiResponse: busRoutesJSON,
-                })
-                //Return this.state.busRoutes as a parameter of mapBusRoutes. This is kinda pointless
-                //but it works as a callback.
-                return this.mapBusRoutes(this.state.apiResponse);
+                });
+                //Call mapBusRoutes to work through the JSON response for later use.
+                this.mapBusRoutes();
             })
             .catch((error) => {
                 console.error(error);
             });
     };
 
-    mapBusRoutes = (returnedBusRoutes) => {
-        //Set busroutes to state and show component
+    mapBusRoutes = () => {
+        //Get the API response from state
+        /* {[{[
+                {}
+                {}
+                {}
+            ]}]}
+            Response is: object wraps an array of route objects, each route object has an array of objects containing bus data.
+        */
+        
+        //Logs the whole response from the SEPTA API
+        console.log("mapDataObject: ", this.state.apiResponse);
+
+        //Returns the object wrapper as an array of route objects
+        const mapDataArrays = Object.entries(this.state.apiResponse);
+
+        //Maps the array of route objects, and returns each route object as an array
+        const mappableRoutes = mapDataArrays.map((route) => {
+            return Object.entries(route[1][0]);
+        });
+
+        //Pushes each route array into one routeArr const for easy use later
+        const routeArr = [];
+
+        mappableRoutes[0].forEach((route) => {
+            routeArr.push(route);
+        });
+
+        //Finally, set the mapScreen to active state and set the formatted API response data to State.
+        //This way I can pass it down to the necessary components.
         this.setState({
-            busRoutes: returnedBusRoutes,
-            isMapScreenActive: !this.state.isMapScreenActive
+            isMapScreenActive: !this.state.isMapScreenActive,
+            mappedBusRoutes: routeArr
         });
     }
 
-    
-
     componentDidMount() {
+        //Run everything on mount
         this.getBusRoutes();
     }
 
@@ -63,7 +89,7 @@ class MapScreen extends Component {
             return (
                 <SlideIn animDelay="3200ms" animFillMode="forwards" animDuration="900ms" animStyle="fullScreen" isLoaded={true}>
                     <StyledMapScreen>
-                        <RoutePicker routeData={this.state.busRoutes} />
+                        <RoutePicker routeData={this.state.mappedBusRoutes} />
                         <Map/>
                     </StyledMapScreen>
                 </SlideIn>
