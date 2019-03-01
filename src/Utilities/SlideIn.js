@@ -15,16 +15,6 @@ function SlideIn(props) {
         }
     `;
 
-    const FullScreenSlideIn = keyframes`
-        from {
-            transform: translateY(100vh);
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    `;
-
     const StyledSlideIn = styled.div`
         animation: ${SlideIn};
         animation-delay: ${props => props.animDelay};
