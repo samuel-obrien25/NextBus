@@ -9,11 +9,37 @@ How often have you gotten to your bus stop on time, only for the bus to be 10, 2
 ## TO DO
 
 ~~Everything.~~
-+ Finish Splash Screen
-+ ~~Setup SEPTA API~~
-+ Write tests for components
-+ Integrate MapBox
+
+### UI
++ ~~Finish Splash Screen~~
 + Create Map with Bus line Overlays
 + Create Icons for current bus locations
+
+
+### Testing
++ Components
+  + Map.js
+  + RoutePicker.js
++ Screens
+  + MapScreen.js
+  + SplashScreen.js
++ Text
+  + Headline.js
++ Utilities.js
+  + Loading.js
+  + SlideIn.js
+  + SlideOut.js
++ App.js
+
+### Development
++ ~~Setup SEPTA API~~
++ ~~Integrate Leaflet~~
 + Create filters for the different bus routes
++ Request user's location during SplashScreen and send it to Map.js
++ Replace timed Screen animations with actual loading times
++ Map 
+
+### Nice-To-Haves
++ Add rotation controls to map
++ Favorite Routes
 
