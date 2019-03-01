@@ -13,7 +13,7 @@ const fetchJsonp = require('fetch-jsonp');
         left:0;
         width: 100%;
         height: 100vh;
-        background-color: #c4167d;
+        background-color: /*#c4167d*/ gray;
     `;
 //#endregion Map Styles
 
@@ -68,7 +68,6 @@ class MapScreen extends Component {
                         <Map/>
                     </StyledMapScreen>
                 </SlideIn>
-
             );
 
         }

@@ -1,45 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import styled from 'styled-components';
-import SlideIn from '../Utilities/SlideIn';
-import ReactMapGL from 'react-mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
-//#region Map Styles
-const StyledMap = styled.div`
-        position: relative;
-        top:0;
-        left:0;
-        width: 98%;
-        height: 98%;
-        z-index: 9000;
-        border: 2px solid #FFF;
-        margin: auto;
-    `;
-//#endregion Map Styles
+const StyledMap = styled(Map)`
+    height: 100vh;
+`
 
-const TOKEN = 'pk.eyJ1Ijoic2FtdWVsb2JyaWVuMjUiLCJhIjoiY2pzbmVteGdpMGJuOTQ0bGl6N2ozcHdzdCJ9.1tmUXenL9dzdkvUB8HmEXA';
-
-class Map extends Component {
+export default class map extends Component {
     state = {
-        viewport: {
-            latitude: 39.9732,
-            longitude: -75.1472,
-            zoom: 11,
-            height: 400,
-            width: 400
+        lat: 39.9526,
+        lng: -75.1652,
+        zoom: 10,
+    }
+
+    componentDidMount(){
+        //If User Latitude exists, set the state with user's position. Otherwise center in on the user.
+        if(this.props.userLat){
+            this.setState({
+                lat: this.props.userLat,
+                lng: this.props.userLng
+            })
         }
-    };
+    }
 
     render() {
-
-            return (
-                   <ReactMapGL
-                    {...this.state.viewport}
-                    onViewPortChange={(viewport) => this.setState({viewport})}
-                    mapboxApiAccessToken={TOKEN}
-                    />
-                );
+        const position = [this.state.lat, this.state.lng]
+        return (
+            <StyledMap center={position} zoom={this.state.zoom}>
+                <TileLayer
+                    url="http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png"
+                />
+            </StyledMap>
+        )
     }
 }
-
-export default Map;
