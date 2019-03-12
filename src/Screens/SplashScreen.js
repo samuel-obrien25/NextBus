@@ -29,6 +29,8 @@ const StyledSplashBackground = styled.div`
 class SplashScreen extends React.Component{
     state = {
         slideInOut: "in",
+        userLat: this.props.userLat,
+        userLong: this.props.userLong
     }
 
     componentDidMount() {
