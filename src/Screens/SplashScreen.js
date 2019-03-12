@@ -42,8 +42,6 @@ class SplashScreen extends React.Component{
         }, 2000);
     }
 
-    
-
     render(){
         if(this.state.slideInOut === "in"){
             return (
